@@ -1,11 +1,25 @@
 from flask import Flask, request, jsonify
 import joblib
 import numpy as np
+from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+import os
+from models import db
+
+load_dotenv()
 
 model = joblib.load('./modules/crop_recommendation_model.pkl')
 
 app = Flask(__name__)
 
+#Database Configuration:
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
+#Initialize SQLAlchemy
+db.init_app(app)
+ 
 @app.route('/', methods=['GET'])
 def welcome():
     return jsonify({'success': True, 'message': 'Welcome to crop recommendation system'})
