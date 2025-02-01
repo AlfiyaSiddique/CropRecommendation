@@ -22,7 +22,7 @@ expo-env.d.ts
 
 # debug
 npm-debug.*
-yarn-debug.*
+yarn-debug.* 
 yarn-error.*
 
 # macOS
@@ -37,5 +37,5 @@ yarn-error.*
 
 
 .env
-backend/env/
+/backend/env
 .myenv
