@@ -38,4 +38,7 @@ yarn-error.*
 
 .env
 /backend/env
+/backend/!migrations/README
+/backend/!migrations/env.py
+/backend/!migrations/script.py.mako
 .myenv

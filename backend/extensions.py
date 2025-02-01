@@ -1,7 +1,6 @@
 from authlib.integrations.flask_client import OAuth
 import os
 
-# Initialize OAuth client
 oauth = OAuth()
 
 def init_oauth(app):

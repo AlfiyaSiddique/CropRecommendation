@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String , Boolean
 from .base import BaseModel
 
 class User(BaseModel):
@@ -7,20 +7,13 @@ class User(BaseModel):
     id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String(80), nullable=False, unique=True)
     email = Column(String(120), nullable=False, unique=True)
-    password = Column(String(60), nullable=True)  # Optional for Google auth
-    google_id = Column(String(100), unique=True, nullable=True)  # Optional for manual process
-    username = Column(String(100), unique=True)
-    phone_no = Column(String(15), unique=True, nullable=True)  # Optional, can be left empty
+    password = Column(String(60), nullable=True)  # Required (manual) & optional (google auth)
+    google_id = Column(String(100), unique=True, nullable=True)  # Required (google auth) & optional (manual)
 
-    # Add more columns here
+    #optional field
+    phone_no = Column(Integer, unique=True, nullable=True)
+    age = Column(Integer, nullable=True)
+    is_profile_complete = Column(Boolean, default = False)
 
     def __repr__(self):
-        return {
-            'id': self.id,
-            'username': self.username,
-            'email': self.email,
-            # 'google_id': self.google_id,
-            # 'phone_no': self.phone_no,
-            'created_at': self.created_at.isoformat(),
-            'updated_at': self.updated_at.isoformat(),
-        }
+        return f"User(id={self.id}, username={self.username}, email={self.email})"

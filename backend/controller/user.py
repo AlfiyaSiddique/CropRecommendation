@@ -81,6 +81,9 @@ def login():
 
     if not user:
         return jsonify({"Error": "User does not exist"}), 404
+    
+    if user.google_id:
+        return jsonify({"Error": "This email is registered via Google. Use Google Login."}), 403
 
     if not bcrypt.check_password_hash(user.password, password):
         return jsonify({"Error": "Password is incorrect"}), 401
@@ -118,6 +121,9 @@ def update_user():
         user.username = data['username']
     if 'phone_no' in data:
         user.phone_no = data['phone_no']
+
+    if 'age' in data:
+        user.age = data['age']
     
     db.session.commit()
 

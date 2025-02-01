@@ -1,18 +1,14 @@
 from flask import Flask, request, jsonify
 import joblib
 import numpy as np
-# from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import os
 from models import db , User
 from flask_migrate import Migrate
-# from authlib.integrations.flask_client import OAuth
 from flask_jwt_extended import JWTManager
 from extensions import oauth , init_oauth
 from routes.user import auth_bp
 from controller.user import bcrypt
-from middleware import login_required
-from flask_jwt_extended import jwt_required, get_jwt_identity
 from datetime import timedelta
 
 load_dotenv()
@@ -42,12 +38,11 @@ oauth.init_app(app)
 # Initialize Google OAuth
 init_oauth(app)
 
-# Register blueprints (routes)
+# Register blueprints (user-auth route)
 app.register_blueprint(auth_bp)
 
 
 @app.route('/', methods=['GET'])
-@jwt_required() 
 def welcome():
     return jsonify({'success': True, 'message': 'Welcome to crop recommendation system'})
 
