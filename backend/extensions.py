@@ -1,7 +1,12 @@
 from authlib.integrations.flask_client import OAuth
 import os
+from flask_mail import Mail
 
 oauth = OAuth()
+mail = Mail()
+
+def init_mail(app):
+    mail.init_app(app)
 
 def init_oauth(app):
     # Google OAuth setup
@@ -16,6 +21,6 @@ def init_oauth(app):
         api_base_url='https://www.googleapis.com/oauth2/v1/',
         userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo',
         client_kwargs={'scope': 'email profile'},
-        server_metadata_url='https://accounts.google.com/.well-known/openid-configuration'
+        # server_metadata_url='https://accounts.google.com/.well-known/openid-configuration'
     )
     return google

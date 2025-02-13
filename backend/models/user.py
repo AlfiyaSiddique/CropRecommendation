@@ -16,4 +16,8 @@ class User(BaseModel):
     is_profile_complete = Column(Boolean, default = False)
 
     def __repr__(self):
-        return f"User(id={self.id}, username={self.username}, email={self.email})"
+        return {
+            'id' : self.id,
+            'username' : self.username,
+            'email' : self.email,
+        }

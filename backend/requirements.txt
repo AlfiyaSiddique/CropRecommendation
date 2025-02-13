@@ -2,6 +2,7 @@ alembic==1.14.1
 asgiref==3.7.2
 attrs==23.1.0
 Authlib==1.4.0
+bcrypt==4.2.1
 beautifulsoup4==4.12.2
 black==23.12.1
 blinker==1.9.0
@@ -22,6 +23,7 @@ djangorestframework==3.14.0
 dnspython==2.6.1
 filelock==3.13.1
 Flask==3.1.0
+Flask-Bcrypt==1.0.1
 Flask-JWT-Extended==4.7.1
 Flask-Migrate==4.1.0
 Flask-SQLAlchemy==3.1.1
