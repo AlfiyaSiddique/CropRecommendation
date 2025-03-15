@@ -6,7 +6,11 @@ from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from extensions import oauth , init_oauth
 from routes.user import auth_bp
-from routes.crop import crop_bp
+from routes.product import product_bp
+# from routes.user import auth_bp
+# from routes import register_routes
+# from routes import auth_bp,crop_bp
+# from routes.crop import crop_bp
 from controller.user import bcrypt
 from datetime import timedelta
 from extensions import init_mail
@@ -51,14 +55,16 @@ app.config['SECRET_KEY'] = os.getenv('APP_SECRET_KEY')
 
 init_mail(app)
 
-# Register blueprints (user-auth route)
-app.register_blueprint(auth_bp)
-app.register_blueprint(crop_bp)
+# Register blueprints (auth route)
+app.register_blueprint(auth_bp) 
+# app.register_blueprint(crop_bp)
+app.register_blueprint(product_bp)
 
 @app.route('/', methods=['GET'])
 def welcome():
     print("Humaira")
     return jsonify({'success': True, 'message': 'Welcome to crop recommendation system'})
+
 
 with app.app_context():
     db.create_all()
