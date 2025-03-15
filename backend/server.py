@@ -62,7 +62,6 @@ app.register_blueprint(product_bp)
 
 @app.route('/', methods=['GET'])
 def welcome():
-    print("Humaira")
     return jsonify({'success': True, 'message': 'Welcome to crop recommendation system'})
 
 

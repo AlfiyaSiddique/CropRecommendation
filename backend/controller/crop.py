@@ -74,8 +74,6 @@ transforms = transforms.Compose([
 
 CLASS_NAMES = ['coffee', 'coffee_Disease', 'coffee_Disease_miner', 'coffee_Disease_rust', 'coffee_healthy', 'cotton', 'cotton_Disease', 'cotton_Disease_Aphids edited', 'cotton_Disease_Army worm edited', 'cotton_Disease_Bacterial Blight edited', 'cotton_Disease_Powdery Mildew Edited', 'cotton_Disease_Target spot edited', 'cotton_Healthy', 'jute', 'jute_Disease', 'jute_Disease_Cescospora Leaf Spot', 'jute_Disease_Golden Mosaic', 'jute_Healthy', 'rice', 'rice_Disease', 'rice_Disease_Bacterial leaf blight', 'rice_Disease_Brown spot', 'rice_Disease_Leaf smut', 'rice_Healthy', 'sugarcane', 'sugarcane_Disease', 'sugarcane_Disease_Mosaic', 'sugarcane_Disease_RedRot', 'sugarcane_Disease_Rust', 'sugarcane_Disease_Yellow', 'sugarcane_Healthy', 'wheat', 'wheat_Disease', 'wheat_Disease_septoria', 'wheat_Disease_stripe_rust', 'wheat_Healthy']
 
-print("DOne")
-
 def scrape_solution(disease_name):
     try:
         search_url = f"https://www.google.com/search?q={disease_name.replace(' ', '+')}+treatment"
