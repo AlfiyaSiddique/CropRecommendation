@@ -1,11 +1,12 @@
 from sqlalchemy import Column, Integer, String , Boolean
 from .base import BaseUser
+from sqlalchemy.orm import relationship
 
-class User(BaseUser):
-    __tablename__ = 'Users'
+class Farmer(BaseUser):
+    __tablename__ = 'Farmers'
 
-    #optional field
-    age = Column(Integer, nullable=True)
+    # relation with product
+    products = relationship("Product", back_populates="creator")
 
     def __repr__(self):
         return {
