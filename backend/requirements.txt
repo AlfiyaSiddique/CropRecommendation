@@ -104,7 +104,7 @@ tensorflow_intel==2.18.0
 termcolor==2.5.0
 threadpoolctl==3.5.0
 torch==2.6.0
-torchaudio==2.6.0+cpu
+torchaudio==2.6.0
 torchvision==0.21.0
 trio==0.23.2
 trio-websocket==0.11.1
