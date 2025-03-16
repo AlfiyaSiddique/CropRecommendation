@@ -5,7 +5,6 @@ import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
 from PIL import Image
-import pickle
 import requests
 from bs4 import BeautifulSoup
 
@@ -92,7 +91,6 @@ def scrape_solution(disease_name):
     except Exception as e:
         return f"Error fetching solution: {str(e)}"
 
-
 def detectDisease():
     if "image" not in request.files:
         return jsonify({"error": "No image uploaded"}), 400
@@ -103,11 +101,51 @@ def detectDisease():
 
     with torch.no_grad():
         output = crop_disease_detect_model(image)
+        probabilities = torch.nn.functional.softmax(output, dim=1)  # Convert raw scores to probabilities
+        top_prob, predicted = torch.max(probabilities, 1)  # Get highest probability class
+        predicted_class_idx = predicted.item()
+
+        print("Predicted class index:", predicted_class_idx)  # Debugging
+        print("Top Probability:", top_prob.item())  # Check confidence level
+
+        disease_name = CLASS_NAMES[predicted_class_idx]
+
+    # Extract disease name
+    if "disease" in disease_name.lower():
+        disease_only = disease_name.split("_")[-1]
+    else:
+        disease_only = "healthy"
+
+    if disease_only == "healthy":
+        return jsonify({"status": "healthy", "message": "No disease detected"})
+
+    solution = scrape_solution(disease_only)
+
+    return jsonify({
+        "status": "disease_detected",
+        "disease": disease_only,
+        "solution": solution
+    }), 200
+
+    print("1")
+    if "image" not in request.files:
+        return jsonify({"error": "No image uploaded"}), 400
+    
+    image_file = request.files["image"]
+    image = Image.open(image_file).convert("RGB")
+    image = transforms(image).unsqueeze(0).to(device)
+
+    print("2")
+    with torch.no_grad():
+        print("3")
+        output = crop_disease_detect_model(image)
         _, predicted = torch.max(output, 1)
+        predicted_class_idx = predicted.item()
+        print("Predicted class index:", predicted_class_idx)
         disease_name = CLASS_NAMES[predicted.item()]
 
     if disease_name.lower().find("healthy") != -1:
-        return jsonify({"statuc": "healthy", "message": "No disease detected"})
+        return jsonify({"status": "healthy", "message": "No disease detected"})
     
     solution = scrape_solution(disease_name)
 
